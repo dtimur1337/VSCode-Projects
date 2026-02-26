@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1dd1a1 0%, #0984e3 100%);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-in;
+        }
+
+        .profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 2rem auto;
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease-in;
+        }
+
+        .contact-btn {
+            margin-top: 2rem;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            background-color: white;
+            color: #1dd1a1;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .contact-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-btn:active {
+            transform: scale(0.98);
+        }
+
+        .travolta {
+            position: fixed;
+            width: 120px;
+            height: 120px;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello World 👋</h1>
+        <img src="Self_portrait_1x1.jpeg" alt="Profile Photo" class="profile-photo">
+        <button class="contact-btn">Contact Me</button>
+    </div>
+
+    <img class="travolta" src="Animation.webp" alt="Dancing John Travolta">
+
+    <script>
+        const travolta = document.querySelector('.travolta');
+
+        // Set initial random position
+        let x = Math.random() * (window.innerWidth - 120);
+        let y = Math.random() * (window.innerHeight - 120);
+        let vx = (Math.random() - 0.5) * 8;
+        let vy = (Math.random() - 0.5) * 8;
+
+        function animate() {
+            // Update position
+            x += vx;
+            y += vy;
+
+            // Bounce off walls
+            if (x <= 0 || x >= window.innerWidth - 120) {
+                vx *= -1;
+                x = Math.max(0, Math.min(x, window.innerWidth - 120));
+            }
+            if (y <= 0 || y >= window.innerHeight - 120) {
+                vy *= -1;
+                y = Math.max(0, Math.min(y, window.innerHeight - 120));
+            }
+
+            travolta.style.left = x + 'px';
+            travolta.style.top = y + 'px';
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            x = Math.min(x, window.innerWidth - 120);
+            y = Math.min(y, window.innerHeight - 120);
+        });
+    </script>
+</body>
+</html>
